@@ -1,8 +1,10 @@
 package frank.mapper;
 
 import frank.model.Article;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+@Mapper
 public interface ArticleMapper {
     int deleteByPrimaryKey(Long id);
 
