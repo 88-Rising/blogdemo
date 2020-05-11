@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
+    </parent>
+
     <groupId>frank</groupId>
     <artifactId>blogdemo</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -24,7 +30,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.2.4.RELEASE</version>
         </dependency>
 
         <!-- mybatis-spring-boot-starter: Mybatis框架在SpringBoot中集成的依赖包，
@@ -33,7 +38,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
+            <version>${mybatis-spring-boot-starter.version}</version>
         </dependency>
 
         <!-- mysql-connector-java: mysql数据库驱动包
@@ -59,7 +64,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
-            <version>2.2.4.RELEASE</version>
         </dependency>
 
 
@@ -67,7 +71,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <version>2.2.4.RELEASE</version>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
@@ -76,7 +79,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
             <optional>true</optional>
         </dependency>
 
@@ -84,7 +86,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.2.4.RELEASE</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
