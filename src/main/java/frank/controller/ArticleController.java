@@ -12,6 +12,7 @@ import java.util.List;
 @Controller
 public class ArticleController {
 
+
     @Autowired
     private ArticleService articleService;
 
