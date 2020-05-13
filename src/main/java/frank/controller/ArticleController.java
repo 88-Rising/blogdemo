@@ -8,13 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-
+/*
+* controller需要调用service里边的东西
+* */
 @Controller
 public class ArticleController {
 
 
     @Autowired
-    private ArticleService articleService;
+    private ArticleService articleService;//调用其中的方法来处理一些逻辑
 
     @RequestMapping("/")
     public String index(Model model){
