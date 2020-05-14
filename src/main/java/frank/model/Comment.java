@@ -1,7 +1,11 @@
 package frank.model;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Date;
+@Setter
+@Getter
 public class Comment {
     private Long id;
 

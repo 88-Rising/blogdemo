@@ -12,6 +12,10 @@
     <result column="view_count" property="viewCount" jdbcType="BIGINT" />
     <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
     <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <association property="author" resultMap="frank.mapper.UserMapper.BaseResultMap">
+      <id column="user_id" property="id" jdbcType="BIGINT" />
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from article
@@ -50,8 +54,22 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, user_id, cover_image, category_id, status, title, content, view_count, 
-    created_at, updated_at
-    from article
+    select a.id,
+           a.user_id,
+           a.cover_image,
+           a.category_id,
+           a.status,
+           a.title,
+           a.content,
+           a.view_count,
+           a.created_at,
+           a.updated_at,
+           u.nickname,
+           u.avatar,
+          count(c.article_id) comment_count
+    from article a
+              join user u on a.user_id = u.id
+              join comment c on a.id = c.article_id
+    group by a.id,c.article_id
   </select>
 </mapper>

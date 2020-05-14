@@ -1,8 +1,15 @@
 package frank.model;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Date;
+@Setter
+@Getter
 public class Article {
+    /*
+    * 页面需要的属性可以自行添加
+    * */
     private Long id;
 
     private Long userId;
@@ -22,6 +29,10 @@ public class Article {
     private Date createdAt;
 
     private Date updatedAt;
+
+    private User author;//文章的作者
+
+    private Integer commentCount;//文章的评论数
 
     public Long getId() {
         return id;
