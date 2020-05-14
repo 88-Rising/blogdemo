@@ -1,10 +1,13 @@
 package frank.controller;
 
 import frank.model.Article;
+import frank.model.Comment;
 import frank.service.ArticleService;
+import frank.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -17,6 +20,9 @@ public class ArticleController {
     @Autowired//注入ArticleService类
     private ArticleService articleService;//调用其中的方法来处理一些逻辑
 
+    @Autowired
+    private CommentService commentService;
+
     @RequestMapping("/")//根路径 返回index页面
     public String index(Model model){
         //用户登录以后 user对象要从session获取，并且设置到页面属性中
@@ -24,5 +30,14 @@ public class ArticleController {
         model.addAttribute("articleList",articles);
 
         return "index";
+    }
+
+    @RequestMapping("/a/{id}")
+    public String detail(@PathVariable("id") Long id,Model model){//返回文章详情
+        Article article = articleService.queryArticle(id); //数据库中查询出来article对象
+        List<Comment> comments=commentService.queryComments(id);//查询评论列表
+        article.setCommentList(comments);
+        model.addAttribute("article",article);
+        return "info";
     }
 }

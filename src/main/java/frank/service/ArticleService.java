@@ -16,6 +16,10 @@ public class ArticleService {
 
     @Autowired
     public List<Article> queryArticles() {//注入文章数据库操作
-      return articleMapper.selectAll();
+        return articleMapper.selectAll();
+    }
+
+    public Article queryArticle(Long id) {
+        return articleMapper.selectByPrimaryKey(id);
     }
 }

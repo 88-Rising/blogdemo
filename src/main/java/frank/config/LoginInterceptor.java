@@ -24,6 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
+        //如果用户没有登录就重定向到登陆页面
         response.sendRedirect("/login");//重定向到login
         return false;
     }

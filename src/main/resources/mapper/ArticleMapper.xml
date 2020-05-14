@@ -48,10 +48,23 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, user_id, cover_image, category_id, status, title, content, view_count, 
-    created_at, updated_at
-    from article
-    where id = #{id,jdbcType=BIGINT}
+    select a.id,
+         a.user_id,
+         a.cover_image,
+         a.category_id,
+         a.status,
+         a.title,
+         a.content,
+         a.view_count,
+         a.created_at,
+         a.updated_at,
+         u.nickname,
+         u.avatar,
+         count(c.article_id) comment_count
+  from article a
+       join user u on a.user_id = u.id
+       join comment c on a.id = c.article_id
+    where a.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select a.id,

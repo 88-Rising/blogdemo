@@ -3,7 +3,10 @@ package frank.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
 import java.util.Date;
+import java.util.List;
+
 @Setter
 @Getter
 public class Article {
@@ -30,9 +33,35 @@ public class Article {
 
     private Date updatedAt;
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
     private User author;//文章的作者
 
     private Integer commentCount;//文章的评论数
+
+    private List<Comment> commentList;//评论列表
 
     public Long getId() {
         return id;
