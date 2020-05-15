@@ -19,10 +19,14 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into comment (user_id, article_id, content, 
-      created_at)
-    values (#{userId,jdbcType=BIGINT}, #{articleId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
-      #{createdAt,jdbcType=TIMESTAMP})
+    insert into comment (user_id, article_id, content,
+    created_at)
+    select  user_id,
+            #{articleId,jdbcType=BIGINT},
+            #{content,jdbcType=VARCHAR},
+            #{createdAt,jdbcType=TIMESTAMP}
+       from article
+    where article.id = #{articleId,jdbcType=BIGINT}
   </insert>
   <update id="updateByPrimaryKey" parameterType="frank.model.Comment" >
     update comment

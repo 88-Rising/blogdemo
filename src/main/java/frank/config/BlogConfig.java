@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /*
-* 写一个用户拦截器
+* 用户登录拦截器
 * */
 @Configuration
 public class BlogConfig implements WebMvcConfigurer {
@@ -15,12 +15,14 @@ public class BlogConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         //添加拦截器 使用排除的方式来做(静态文件)
         registry.addInterceptor(new LoginInterceptor())
-                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/css/**")//两个*匹配多级路径
                 .excludePathPatterns("/fonts/**")
                 .excludePathPatterns("/images/**")
                 .excludePathPatterns("/js/**")
                 .excludePathPatterns("/plugins/editor/**")
                 .excludePathPatterns("/")
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/a/*");//一个*匹配一级路径，多级不能匹配
+
     }
 }

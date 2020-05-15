@@ -17,4 +17,8 @@ public class CommentService {
     public List<Comment> queryComments(Long id) {
         return commentMapper.queryComments(id);
     }
+
+    public int insert(Comment comment) {
+        return commentMapper.insert(comment);
+    }
 }

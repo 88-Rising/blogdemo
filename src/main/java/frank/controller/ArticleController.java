@@ -32,7 +32,7 @@ public class ArticleController {
         return "index";
     }
 
-    @RequestMapping("/a/{id}")
+    @RequestMapping("/a/{id}")//返回文章详情页面
     public String detail(@PathVariable("id") Long id,Model model){//返回文章详情
         Article article = articleService.queryArticle(id); //数据库中查询出来article对象
         List<Comment> comments=commentService.queryComments(id);//查询评论列表
