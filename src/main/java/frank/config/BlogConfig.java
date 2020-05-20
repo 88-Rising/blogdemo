@@ -13,6 +13,7 @@ public class BlogConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
+
         //添加拦截器 使用排除的方式来做(静态文件)
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns("/css/**")//两个*匹配多级路径
