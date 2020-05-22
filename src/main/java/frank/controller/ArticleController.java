@@ -2,14 +2,17 @@ package frank.controller;
 
 import frank.model.Article;
 import frank.model.Comment;
+import frank.model.User;
 import frank.service.ArticleService;
 import frank.service.CommentService;
+import org.omg.CORBA.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /*
 * controller需要调用service里边的东西
@@ -39,5 +42,12 @@ public class ArticleController {
         article.setCommentList(comments);
         model.addAttribute("article",article);
         return "info";
+    }
+
+    @RequestMapping("/writer")//页面需要什么属性就注入什么属性
+    public String writer(HttpSession session,Model model){//根据session获取到User 返回文章列表
+        User user=(User) session.getAttribute("user");
+//        List<Article> articles=articleService.
+        return "writer";
     }
 }
