@@ -37,6 +37,7 @@ public class ArticleController {
 
     @RequestMapping("/a/{id}")//返回文章详情页面
     public String detail(@PathVariable("id") Long id,Model model){//返回文章详情
+
         Article article = articleService.queryArticle(id); //数据库中查询出来article对象
         List<Comment> comments=commentService.queryComments(id);//查询评论列表
         article.setCommentList(comments);
@@ -45,6 +46,7 @@ public class ArticleController {
     }
 
     @RequestMapping("/writer")//页面需要什么属性就注入什么属性
+
     public String writer(HttpSession session,Model model){//根据session获取到User 返回文章列表
         User user=(User) session.getAttribute("user");
 //        List<Article> articles=articleService.
