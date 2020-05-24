@@ -46,7 +46,6 @@ public class ArticleController {
     }
 
     @RequestMapping("/writer")//页面需要什么属性就注入什么属性
-
     public String writer(HttpSession session,Model model){//根据session获取到User 返回文章列表
         User user=(User) session.getAttribute("user");
 //        List<Article> articles=articleService.
