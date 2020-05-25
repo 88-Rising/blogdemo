@@ -45,10 +45,12 @@ public class ArticleController {
         return "info";
     }
 
-    @RequestMapping("/writer")//页面需要什么属性就注入什么属性
+    @RequestMapping("/writer")//页面需要什么属性就注入什么属性l
     public String writer(HttpSession session,Model model){//根据session获取到User 返回文章列表
         User user=(User) session.getAttribute("user");
-//        List<Article> articles=articleService.
+        List<Article> articles=articleService.queryArticlesByUserId(user.getId());
+        model.addAttribute("articleList",articles);//添加文章列表
+
         return "writer";
     }
 }
