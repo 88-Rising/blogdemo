@@ -50,7 +50,6 @@ public class ArticleController {
         User user=(User) session.getAttribute("user");
         List<Article> articles=articleService.queryArticlesByUserId(user.getId());
         model.addAttribute("articleList",articles);//添加文章列表
-
         return "writer";
     }
 }
