@@ -57,6 +57,7 @@ public class ArticleController {
         model.addAttribute("articleList",articles);//添加文章列表
         List<Category> categories=categoryService.queryCategoriesByUserId(user.getId());//通过用户id获取到分类列表
         model.addAttribute("categoryList",categories);
+        model.addAttribute("activeCid",categories.get(0).getId());//从已经写好的分类列表中获取 ，前两个属性从数据苦衷获取
         return "writer";
     }
 }
