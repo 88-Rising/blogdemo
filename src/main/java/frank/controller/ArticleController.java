@@ -1,9 +1,11 @@
 package frank.controller;
 
 import frank.model.Article;
+import frank.model.Category;
 import frank.model.Comment;
 import frank.model.User;
 import frank.service.ArticleService;
+import frank.service.CategoryService;
 import frank.service.CommentService;
 import org.omg.CORBA.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ArticleController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private CategoryService categoryService;//文章分类
+
     @RequestMapping("/")//根路径 返回index页面
     public String index(Model model){
         //用户登录以后 user对象要从session获取，并且设置到页面属性中
@@ -47,10 +52,11 @@ public class ArticleController {
 
     @RequestMapping("/writer")//页面需要什么属性就注入什么属性
     public String writer(HttpSession session,Model model){//根据session获取到User 返回文章列表
-
         User user=(User) session.getAttribute("user");
-        List<Article> articles=articleService.queryArticlesByUserId(user.getId());
+        List<Article> articles=articleService.queryArticlesByUserId(user.getId());//通过用户id查找出来所有的文章
         model.addAttribute("articleList",articles);//添加文章列表
+        List<Category> categories=categoryService.queryCategoriesByUserId(user.getId());//通过用户id获取到分类列表
+        model.addAttribute("categoryList",categories);
         return "writer";
     }
 }
