@@ -1,13 +1,14 @@
 package frank.config;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-@Controller
+@ControllerAdvice
 public class ControllerInterceptor {
 
     @ExceptionHandler(Exception.class)
