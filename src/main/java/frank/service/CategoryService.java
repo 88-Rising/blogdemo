@@ -16,4 +16,8 @@ public class CategoryService {
     public List<Category> queryCategoriesByUserId(Long id) {
         return categoryMapper.queryCategoriesByUserId(id);
     }
+
+    public int insert(Category category) {
+        return categoryMapper.insert(category);
+    }
 }
