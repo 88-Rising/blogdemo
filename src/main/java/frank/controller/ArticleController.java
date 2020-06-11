@@ -36,7 +36,6 @@ public class ArticleController {
         //用户登录以后 user对象要从session获取，并且设置到页面属性中
         List<Article> articles =articleService.queryArticles();//在根路径下查找所有的文章列表 然后返回回来
         model.addAttribute("articleList",articles);
-
         return "index";
     }
 
