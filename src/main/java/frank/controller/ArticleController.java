@@ -59,4 +59,20 @@ public class ArticleController {
         model.addAttribute("activeCid",categories.get(0).getId());//从已经写好的分类列表中获取 ，前两个属性从数据苦衷获取
         return "writer";
     }
+
+    /**
+     *跳转到新建文章/修改页面（同一个页面editor）
+     * id:新增的时候为categoryId,修改的时候是articleId
+     * model:editor页面需要type属性，都需要category,新增时需要activeCid,修改的时候需要article
+     * */
+    @RequestMapping("/writer/forward/{type}/{id}/editor")//新增文章页面和文章修改页面跳转 type字段表示地是如果为1则是新增如果为2则是修改
+    public String editor(@PathVariable("type") Long type,
+                         @PathVariable("id") Long id,Model model){//页面需要传入地参数
+
+
+
+        return "editor";
+    }
+
+
 }
