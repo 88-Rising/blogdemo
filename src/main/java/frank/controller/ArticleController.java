@@ -61,6 +61,7 @@ public class ArticleController {
     }
 
     /**
+     * 从writer页面进行的跳转
      *跳转到新建文章/修改页面（同一个页面editor）
      * id:新增的时候为categoryId,修改的时候是articleId
      * model:editor页面需要type属性，都需要category,新增时需要activeCid,修改的时候需要article
@@ -68,7 +69,19 @@ public class ArticleController {
     @RequestMapping("/writer/forward/{type}/{id}/editor")//新增文章页面和文章修改页面跳转 type字段表示地是如果为1则是新增如果为2则是修改
     public String editor(@PathVariable("type") Long type,
                          @PathVariable("id") Long id,Model model){//页面需要传入地参数
-
+        Category category;//因为文章属性这两个功能都要用到 所以首先定义
+        //首先判断是新增还是修改
+        if(type==1){//完成editor页面新增的属性设置 自动拆装箱
+            category=categoryService.queryCategoryById(id);
+            model.addAttribute("activeCid",id);
+        }else{//完成editor页面修改的属性设置
+            Article article=articleService.queryArticle(id);//可以使用一次sql查询出article和category的数据，Article定义Category为一个属性
+            //sql中使用assocition标签作为查询结果一对一关联关系
+            model.addAttribute("article",article);
+            category=categoryService.queryCategoryById(new Long(article.getCategoryId()));
+        }
+        model.addAttribute("type",type);
+        model.addAttribute("category",category);
 
 
         return "editor";
