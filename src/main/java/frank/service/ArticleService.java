@@ -31,4 +31,8 @@ public class ArticleService {
     public int insert(Article article) {
         return articleMapper.insert(article);
     }
+
+    public int updateByCondition(Article article) {
+        return articleMapper.updateByCondition(article);
+    }
 }

@@ -52,13 +52,14 @@ public class ArticleController {
     }
 
     @RequestMapping("/writer")//页面需要什么属性就注入什么属性
-    public String writer(HttpSession session,Model model){//根据session获取到User 返回文章列表
+    public String writer(HttpSession session,Long activeCid,Model model){//根据session获取到User 返回文章列表
         User user=(User) session.getAttribute("user");
         List<Article> articles=articleService.queryArticlesByUserId(user.getId());//通过用户id查找出来所有的文章
         model.addAttribute("articleList",articles);//添加文章列表
         List<Category> categories=categoryService.queryCategoriesByUserId(user.getId());//通过用户id获取到分类列表
         model.addAttribute("categoryList",categories);
-        model.addAttribute("activeCid",categories.get(0).getId());//从已经写好的分类列表中获取 ，前两个属性从数据苦衷获取
+        model.addAttribute("activeCid",
+                activeCid == null ? categories.get(0).getId():activeCid);//从已经写好的分类列表中获取 ，前两个属性从数据苦衷获取
         return "writer";
     }
 
@@ -94,7 +95,7 @@ public class ArticleController {
     @RequestMapping(value = "/writer/article/{type}/{id}",method = RequestMethod.POST)
     public String publish(@PathVariable("type") Long type,
                           @PathVariable("id") Integer id,Article article,
-                          HttpSession session,Model model){
+                          HttpSession session){
 
         article.setUpdatedAt(new Date());
         if(type==1){//新增的时候插入文章数据
@@ -107,10 +108,12 @@ public class ArticleController {
             article.setViewCount(0L);//浏览量
             article.setCommentCount(0);//评论量
             int num=articleService.insert(article);
+            id = article.getId().intValue();
         }else{//修改的时候，修改文章数据
             article.setId(new Long(id));
+            int num=articleService.updateByCondition(article);
         }
-        return String.format("redirct:/writer/forward/%s/%s/editor",type,id);
+        return String.format("redirect:/writer/forward/2/%s/editor",id);
     }
 
 }
