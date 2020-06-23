@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 /*
 * controller需要调用service里边的东西
@@ -62,7 +64,7 @@ public class ArticleController {
 
     /**
      * 从writer页面进行的跳转
-     *跳转到新建文章/修改页面（同一个页面editor）
+     *跳转到新建文章/修改页面（同一个页面editor）仅是跳转页面
      * id:新增的时候为categoryId,修改的时候是articleId
      * model:editor页面需要type属性，都需要category,新增时需要activeCid,修改的时候需要article
      * */
@@ -82,10 +84,33 @@ public class ArticleController {
         }
         model.addAttribute("type",type);
         model.addAttribute("category",category);
-
-
         return "editor";
     }
 
+    /**
+     * 文章新增以及修改的操作
+     * article:发布的文章信息
+     * */
+    @RequestMapping(value = "/writer/article/{type}/{id}",method = RequestMethod.POST)
+    public String publish(@PathVariable("type") Long type,
+                          @PathVariable("id") Integer id,Article article,
+                          HttpSession session,Model model){
+
+        article.setUpdatedAt(new Date());
+        if(type==1){//新增的时候插入文章数据
+            article.setCategoryId(id);//放入文章id
+            User user=(User)session.getAttribute("user");
+            article.setUserId(user.getId());
+            article.setCoverImage("https://picsum.photos/id/1/400/300");//图片设置成死的
+            article.setCreatedAt(new Date());
+            article.setStatus((byte)0);
+            article.setViewCount(0L);//浏览量
+            article.setCommentCount(0);//评论量
+            int num=articleService.insert(article);
+        }else{//修改的时候，修改文章数据
+            article.setId(new Long(id));
+        }
+        return String.format("redirct:/writer/forward/%s/%s/editor",type,id);
+    }
 
 }

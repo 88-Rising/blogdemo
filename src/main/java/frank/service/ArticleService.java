@@ -1,5 +1,6 @@
 package frank.service;
 
+import com.sun.org.apache.regexp.internal.RE;
 import frank.mapper.ArticleMapper;
 import frank.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,9 @@ public class ArticleService {
 
     public List<Article> queryArticlesByUserId(Long id) {
         return articleMapper.queryArticlesByUserId(id);
+    }
+
+    public int insert(Article article) {
+        return articleMapper.insert(article);
     }
 }
