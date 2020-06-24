@@ -72,6 +72,7 @@ public class ArticleController {
     @RequestMapping("/writer/forward/{type}/{id}/editor")//新增文章页面和文章修改页面跳转 type字段表示地是如果为1则是新增如果为2则是修改
     public String editor(@PathVariable("type") Long type,
                          @PathVariable("id") Long id,Model model){//页面需要传入地参数
+
         Category category;//因为文章属性这两个功能都要用到 所以首先定义
         //首先判断是新增还是修改
         if(type==1){//完成editor页面新增的属性设置 自动拆装箱
